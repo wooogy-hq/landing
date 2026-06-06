@@ -28,6 +28,7 @@ jobs:
           tags: |
             type=sha,prefix=
             type=sha,prefix=,format=long
+            type=raw,value={{date 'YYYYMMDDHHmmss'}}-{{sha}}
             type=ref,event=branch
       - uses: docker/build-push-action@v6
         with:
