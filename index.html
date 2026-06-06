@@ -6,15 +6,19 @@
   <title>wooogy-hq</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { overflow-x: clip; }
+    html { overflow-x: hidden; overflow-x: clip; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #0a0a0a;
       color: #e0e0e0;
       line-height: 1.7;
+      overflow-x: hidden;
       overflow-x: clip;
+      overscroll-behavior-x: none;
+      touch-action: pan-y pinch-zoom;
+      max-width: 100vw;
     }
-    img, svg, video, canvas, iframe, pre, code, table { max-width: 100%; }
+    section, div, p, span, h1, h2, h3, h4, h5, h6, header, footer, main, article, blockquote { max-width: 100%; }
     .gradient-text {
       background: linear-gradient(135deg, #a29bfe, #6c5ce7);
       -webkit-background-clip: text;
