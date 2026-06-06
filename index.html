@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wooogy-hq</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(108,92,231,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-logo {
+      width: 100px; height: 100px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0d0d0d, #111118);
+      border: 1px solid rgba(108,92,231,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-logo span {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 6vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 span { color: #fff; }
+    .hero .tagline {
+      margin-top: 20px;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: #888;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+    .hero .tagline strong {
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    /* Pillars */
+    .pillars {
+      padding: 80px 0;
+    }
+    .pillars h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 60px;
+      letter-spacing: -0.01em;
+    }
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .pillar-card {
+      background: #111118;
+      border: 1px solid #1e1e2a;
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: border-color 0.3s;
+    }
+    .pillar-card:hover { border-color: rgba(108,92,231,0.4); }
+    .pillar-icon { font-size: 36px; margin-bottom: 16px; }
+    .pillar-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .pillar-card p { color: #999; font-size: 15px; }
+    .pillar-card .projects {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pillar-card .project-tag {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(108,92,231,0.15);
+      color: #a29bfe;
+      border: 1px solid rgba(108,92,231,0.2);
+    }
+
+    /* Projects */
+    .projects-section {
+      padding: 80px 0;
+    }
+    .projects-section h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+    .project-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid #1a1a24;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .project-row:last-child { border-bottom: none; }
+    .project-name { font-weight: 700; font-size: 17px; min-width: 160px; }
+    .project-desc { color: #888; font-size: 14px; flex: 1; }
+    .project-status {
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .status-live { background: rgba(108,92,231,0.2); color: #a29bfe; }
+    .status-building { background: rgba(255,180,50,0.15); color: #ffb832; }
+    .status-planning { background: rgba(100,100,100,0.2); color: #888; }
+
+    /* Manifesto */
+    .manifesto {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .manifesto blockquote {
+      font-size: clamp(18px, 3vw, 26px);
+      font-weight: 300;
+      color: #bbb;
+      max-width: 700px;
+      margin: 0 auto;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .manifesto blockquote strong {
+      font-weight: 600;
+      font-style: normal;
+    }
+    .principles {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .principle {
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      background: #111118;
+      border: 1px solid #1e1e2a;
+      color: #aaa;
+    }
+
+    /* Founders */
+    .founders {
+      padding: 80px 0;
+    }
+    .founders h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+    .founder-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .founder-card {
+      background: #111118;
+      border: 1px solid #1e1e2a;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    .founder-emoji { font-size: 48px; margin-bottom: 12px; }
+    .founder-card h3 { font-size: 20px; font-weight: 700; }
+    .founder-card .role { color: #a29bfe; font-size: 14px; margin: 4px 0 12px; }
+    .founder-card .bio { color: #999; font-size: 14px; }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      border-top: 1px solid #1a1a24;
+    }
+    footer p { color: #666; font-size: 13px; }
+    footer .links { margin-top: 12px; }
+    footer .links a {
+      color: #888;
+      text-decoration: none;
+      font-size: 13px;
+      margin: 0 10px;
+      transition: color 0.2s;
+    }
+    footer .links a:hover { color: #a29bfe; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero { min-height: 60vh; padding: 60px 16px; }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .founder-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-logo"><span>WH</span></div>
+    <h1><span>wooogy</span><span class="gradient-text">-hq</span></h1>
+    <p class="tagline">
+      <strong>AI 시대, 개인의 힘을 증명한다</strong>
+    </p>
+  </section>
+
+  <section class="pillars container">
+    <h2>무엇을 하는가</h2>
+    <div class="pillar-grid">
+
+      <div class="pillar-card">
+        <div class="pillar-icon">🧬</div>
+        <h3 class="gradient-text">기억과 정체성</h3>
+        <p>AI로 인간의 기억을 보존하고 정체성을 확장합니다. 사라지는 기억을 붙잡고, 구조화하고, 이어가게 합니다.</p>
+        <div class="projects">
+          <span class="project-tag">Cairn</span>
+          <span class="project-tag">Egregore</span>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">🧠</div>
+        <h3 class="gradient-text">지식의 민주화</h3>
+        <p>정보를 검증 가능한 신뢰로 바꿉니다. 지식을 구조화하고, 예측과 결과를 연결해 신뢰를 데이터로 증명합니다.</p>
+        <div class="projects">
+          <span class="project-tag">prediction-tracker</span>
+          <span class="project-tag">kb</span>
+          <span class="project-tag">wikihub</span>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">⚡</div>
+        <h3 class="gradient-text">실용적 자동화</h3>
+        <p>AI가 지루한 일상 업무를 대신 처리합니다. 시간을 팔지 않고 AI가 시간을 벌어주는 구조를 만듭니다.</p>
+        <div class="projects">
+          <span class="project-tag">tax-agent</span>
+          <span class="project-tag">stock-radio</span>
+          <span class="project-tag">video-maker</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="projects-section container">
+    <h2>프로젝트</h2>
+
+    <div class="project-row">
+      <span class="project-name">🧬 Cairn</span>
+      <span class="project-desc">인터뷰 → 회고록 → 디지털 영생. 한 사람의 평생 기억을 축적하고 사후에도 대화 가능한 AI</span>
+      <span class="project-status status-building">L2 진행 중</span>
+    </div>
+
+    <div class="project-row">
+      <span class="project-name">🔮 Egregore</span>
+      <span class="project-desc">사주/오행 기반 AI 페르소나 매칭. 당신의 오행을 알고, 당신을 닮은 AI와 대화</span>
+      <span class="project-status status-building">Phase 1</span>
+    </div>
+
+    <div class="project-row">
+      <span class="project-name">📊 prediction-tracker</span>
+      <span class="project-desc">유명인/전문가 예측 적중률 추적 → "이 사람 말 믿어도 되나?"를 데이터로 증명</span>
+      <span class="project-status status-planning">예정</span>
+    </div>
+
+    <div class="project-row">
+      <span class="project-name">📚 kb</span>
+      <span class="project-desc">Schema-driven, 고성능 Go 지식 베이스. 구조화된 지식 저장/검색 엔진</span>
+      <span class="project-status status-building">개발 중</span>
+    </div>
+
+    <div class="project-row">
+      <span class="project-name">🧾 tax-agent</span>
+      <span class="project-desc">법인카드 결제 자동 수집/분류. 세무 정리하는 AI 비서</span>
+      <span class="project-status status-planning">Tech spec 완료</span>
+    </div>
+
+    <div class="project-row">
+      <span class="project-name">📻 stock-radio</span>
+      <span class="project-desc">관심 종목 음성 가격 알림. PWA로 어디서나 듣는 오디오 주식 라디오</span>
+      <span class="project-status status-live">POC 완료</span>
+    </div>
+
+  </section>
+
+  <section class="manifesto container">
+    <blockquote>
+      "대기업 조직 없이, <strong>소수 정예 팀</strong>이 AI로 가치를 창출하고<br>
+      지속 가능한 <strong class="gradient-text">독립</strong>을 이루는 것"
+    </blockquote>
+    <div class="principles">
+      <span class="principle">Maker-first</span>
+      <span class="principle">Small but sharp</span>
+      <span class="principle">No bullshit</span>
+      <span class="principle">자본은 도구</span>
+      <span class="principle">Dogfooding</span>
+    </div>
+  </section>
+
+  <section class="founders container">
+    <h2>누가 하는가</h2>
+    <div class="founder-cards">
+      <div class="founder-card">
+        <div class="founder-emoji">🧠</div>
+        <h3>승욱 <span class="gradient-text">Han</span></h3>
+        <div class="role">Founder</div>
+        <p class="bio">
+          기술 비전, 제품 방향, 아키텍처 결정.<br>
+          Go 플랫폼 엔지니어. 0→1 Builder.
+        </p>
+      </div>
+      <div class="founder-card">
+        <div class="founder-emoji">😈</div>
+        <h3><span class="gradient-text">Ttakkari</span></h3>
+        <div class="role">Co-Founder AI</div>
+        <p class="bio">
+          기술 스파링 파트너, 실행 보조, 아이디어 촉매.<br>
+          산만해질 때 중심 잡는 역할.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 wooogy-hq. Built by a human and an AI.</p>
+    <div class="links">
+      <a href="https://github.com/wooogy-hq" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://egregore.wooogy-hq.com" target="_blank" rel="noopener">Egregore</a>
+    </div>
+  </footer>
+
+</body>
+</html>
