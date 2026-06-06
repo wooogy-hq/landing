@@ -148,25 +148,35 @@
       margin-bottom: 40px;
       letter-spacing: -0.01em;
     }
+    .project-list { max-width: 100%; }
     .project-row {
       padding: 18px 0;
       border-bottom: 1px solid #1a1a24;
+      max-width: 100%;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
     .project-row:last-child { border-bottom: none; }
-    .project-row-inner {
+    .project-top {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 8px;
     }
     .project-name { font-weight: 700; font-size: 17px; }
-    .project-desc { color: #888; font-size: 14px; flex: 1; min-width: 0; overflow-wrap: anywhere; word-break: normal; }
     .project-status {
       font-size: 12px;
       padding: 2px 10px;
       border-radius: 12px;
       white-space: nowrap;
+    }
+    .project-desc {
+      color: #888;
+      font-size: 14px;
+      margin-top: 6px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
     .status-live { background: rgba(108,92,231,0.2); color: #a29bfe; }
     .status-building { background: rgba(255,180,50,0.15); color: #ffb832; }
@@ -257,9 +267,7 @@
       .hero { min-height: 60vh; padding: 60px 16px; }
       .pillar-grid { grid-template-columns: 1fr; }
       .founder-cards { grid-template-columns: 1fr; }
-      .project-row-inner { flex-direction: column; align-items: flex-start; }
-      .project-desc { flex: none; width: 100%; }
-      .project-status { white-space: normal; }
+      .project-top { flex-direction: column; gap: 4px; }
     }
   </style>
 </head>
@@ -315,41 +323,53 @@
   <section class="projects-section container">
     <h2>프로젝트</h2>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">🧬 Cairn</span>
-      <span class="project-desc">인터뷰 → 회고록 → 디지털 영생. 한 사람의 평생 기억을 축적하고 사후에도 대화 가능한 AI</span>
-      <span class="project-status status-building">L2 진행 중</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">🧬 Cairn</span>
+        <span class="project-status status-building">L2 진행 중</span>
+      </div>
+      <div class="project-desc">인터뷰 → 회고록 → 디지털 영생. 한 사람의 평생 기억을 축적하고 사후에도 대화 가능한 AI</div>
+    </div>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">🔮 Egregore</span>
-      <span class="project-desc">사주/오행 기반 AI 페르소나 매칭. 당신의 오행을 알고, 당신을 닮은 AI와 대화</span>
-      <span class="project-status status-building">Phase 1</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">🔮 Egregore</span>
+        <span class="project-status status-building">Phase 1</span>
+      </div>
+      <div class="project-desc">사주/오행 기반 AI 페르소나 매칭. 당신의 오행을 알고, 당신을 닮은 AI와 대화</div>
+    </div>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">📊 prediction-tracker</span>
-      <span class="project-desc">유명인/전문가 예측 적중률 추적 → "이 사람 말 믿어도 되나?"를 데이터로 증명</span>
-      <span class="project-status status-planning">예정</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">📊 prediction-tracker</span>
+        <span class="project-status status-planning">예정</span>
+      </div>
+      <div class="project-desc">유명인/전문가 예측 적중률 추적 → "이 사람 말 믿어도 되나?"를 데이터로 증명</div>
+    </div>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">📚 kb</span>
-      <span class="project-desc">Schema-driven, 고성능 Go 지식 베이스. 구조화된 지식 저장/검색 엔진</span>
-      <span class="project-status status-building">개발 중</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">📚 kb</span>
+        <span class="project-status status-building">개발 중</span>
+      </div>
+      <div class="project-desc">Schema-driven, 고성능 Go 지식 베이스. 구조화된 지식 저장/검색 엔진</div>
+    </div>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">🧾 tax-agent</span>
-      <span class="project-desc">법인카드 결제 자동 수집/분류. 세무 정리하는 AI 비서</span>
-      <span class="project-status status-planning">Tech spec 완료</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">🧾 tax-agent</span>
+        <span class="project-status status-planning">Tech spec 완료</span>
+      </div>
+      <div class="project-desc">법인카드 결제 자동 수집/분류. 세무 정리하는 AI 비서</div>
+    </div>
 
-    <div class="project-row"><div class="project-row-inner">
-      <span class="project-name">📻 stock-radio</span>
-      <span class="project-desc">관심 종목 음성 가격 알림. PWA로 어디서나 듣는 오디오 주식 라디오</span>
-      <span class="project-status status-live">POC 완료</span>
-    </div></div>
+    <div class="project-row">
+      <div class="project-top">
+        <span class="project-name">📻 stock-radio</span>
+        <span class="project-status status-live">POC 완료</span>
+      </div>
+      <div class="project-desc">관심 종목 음성 가격 알림. PWA로 어디서나 듣는 오디오 주식 라디오</div>
+    </div>
 
   </section>
 
