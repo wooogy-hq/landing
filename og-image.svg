@@ -1,56 +1,256 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a29bfe"/>
-      <stop offset="100%" stop-color="#6c5ce7"/>
-    </linearGradient>
-    <linearGradient id="logoBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0d0d0d"/>
-      <stop offset="100%" stop-color="#111118"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="38%" r="55%">
-      <stop offset="0%" stop-color="rgba(108,92,231,0.10)"/>
-      <stop offset="50%" stop-color="rgba(108,92,231,0.04)"/>
-      <stop offset="100%" stop-color="rgba(108,92,231,0)"/>
+    <!-- Center glow radial gradient -->
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="30%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="8%" stop-color="#f0e6ff" stop-opacity="0.95"/>
+      <stop offset="20%" stop-color="#a29bfe" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#6c5ce7" stop-opacity="0.2"/>
+      <stop offset="70%" stop-color="#3d2a8e" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowSmall" cx="50%" cy="35%" r="28%">
-      <stop offset="0%" stop-color="rgba(162,155,254,0.07)"/>
-      <stop offset="100%" stop-color="rgba(162,155,254,0)"/>
+
+    <!-- Bright core behind crack -->
+    <radialGradient id="brightCore" cx="50%" cy="50%" r="8%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#e8d5ff" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#a29bfe" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6c5ce7" stop-opacity="0"/>
     </radialGradient>
+
+    <!-- Purple ambient -->
+    <radialGradient id="ambientGlow" cx="50%" cy="48%" r="45%">
+      <stop offset="0%" stop-color="#6c5ce7" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#3d2a8e" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="#0a0a0a" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0.85"/>
+    </radialGradient>
+
+    <!-- Blur filters for glow -->
+    <filter id="glowSm" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="glowMd" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="glowLg" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+
+    <filter id="glowXl" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="50"/>
+    </filter>
+
+    <filter id="glowSmP" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+
+    <filter id="glowMdP" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+
+    <!-- Noise texture filter -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="overlay" result="blended"/>
+    </filter>
+
+    <filter id="noiseSubtle">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+    </filter>
+
+    <filter id="noiseGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/>
+    </filter>
+
+    <!-- Glowing stroke gradient for cracks -->
+    <linearGradient id="crackGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a29bfe" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#6c5ce7" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Subtle text gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a29bfe" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#c4b5fd" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#6c5ce7" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <!-- Clip for vignette overlay -->
+    <clipPath id="canvas">
+      <rect width="1200" height="630"/>
+    </clipPath>
   </defs>
 
-  <!-- Background -->
+  <!-- ===== BACKGROUND ===== -->
   <rect width="1200" height="630" fill="#0a0a0a"/>
 
-  <!-- Subtle radial glows -->
-  <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect width="1200" height="500" fill="url(#glowSmall)"/>
+  <!-- Ambient purple glow behind crack -->
+  <rect width="1200" height="630" fill="url(#ambientGlow)"/>
 
-  <!-- Thin decorative line at top -->
-  <rect x="0" y="0" width="1200" height="1" fill="url(#purpleGrad)" opacity="0.25"/>
+  <!-- Large soft core glow -->
+  <ellipse cx="600" cy="280" rx="400" ry="300" fill="url(#coreGlow)" filter="url(#glowXl)"/>
 
-  <!-- Logo box: WH monogram -->
-  <rect x="550" y="95" width="100" height="100" rx="22" ry="22" fill="url(#logoBg)" stroke="rgba(108,92,231,0.3)" stroke-width="1"/>
-  <text x="600" y="147" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="900" letter-spacing="2" fill="url(#purpleGrad)">WH</text>
+  <!-- Bright center core -->
+  <ellipse cx="600" cy="280" rx="120" ry="80" fill="url(#brightCore)" filter="url(#glowLg)"/>
 
-  <!-- Title: wooogy-hq -->
-  <text x="600" y="280" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="56" font-weight="800" letter-spacing="-1">
-    <tspan fill="#ffffff">wooogy</tspan><tspan fill="url(#purpleGrad)">-hq</tspan>
+  <!-- ===== MAIN CRACK ===== -->
+  <!-- The crack is a jagged angular path. Center is brightest, edges fade. -->
+
+  <!-- Main crack: central vertical with sharp angular deviations -->
+  <!-- Core: white thin line -->
+  <g filter="url(#glowSm)">
+    <polyline points="
+      600,50  610,100  590,140  605,180  595,220
+      600,240  600,240  598,260  603,280  600,285
+      597,300  605,330  595,370  610,420  590,470
+      605,520  598,560  600,620
+    " fill="none" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.95" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Main crack: purple envelope -->
+  <g filter="url(#glowSmP)">
+    <polyline points="
+      600,50  610,100  590,140  605,180  595,220
+      600,240  600,240  598,260  603,280  600,285
+      597,300  605,330  595,370  610,420  590,470
+      605,520  598,560  600,620
+    " fill="none" stroke="#c4b5fd" stroke-width="3.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Main crack: outer glow -->
+  <g filter="url(#glowMdP)">
+    <polyline points="
+      600,50  610,100  590,140  605,180  595,220
+      600,240  600,240  598,260  603,280  600,285
+      597,300  605,330  595,370  610,420  590,470
+      605,520  598,560  600,620
+    " fill="none" stroke="#6c5ce7" stroke-width="8" stroke-opacity="0.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ===== BRANCH CRACKS ===== -->
+
+  <!-- Branch 1: upper-left -->
+  <g filter="url(#glowSmP)">
+    <polyline points="
+      590,140  540,120  480,130  420,100  370,50
+    " fill="none" stroke="#c4b5fd" stroke-width="1.8" stroke-opacity="0.5" stroke-linejoin="round"/>
+  </g>
+  <g filter="url(#glowMdP)">
+    <polyline points="
+      590,140  540,120  480,130  420,100  370,50
+    " fill="none" stroke="#6c5ce7" stroke-width="5" stroke-opacity="0.25" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Branch 1 sub-branch -->
+  <polyline points="540,120 510,90 480,75" fill="none" stroke="#a29bfe" stroke-width="1" stroke-opacity="0.35" stroke-linejoin="round"/>
+
+  <!-- Branch 2: upper-right -->
+  <g filter="url(#glowSmP)">
+    <polyline points="
+      610,100  670,70  750,90  820,40  890,20
+    " fill="none" stroke="#c4b5fd" stroke-width="1.6" stroke-opacity="0.45" stroke-linejoin="round"/>
+  </g>
+  <g filter="url(#glowMdP)">
+    <polyline points="
+      610,100  670,70  750,90  820,40  890,20
+    " fill="none" stroke="#6c5ce7" stroke-width="4.5" stroke-opacity="0.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Branch 2 sub-branch -->
+  <polyline points="750,90 770,120 810,140" fill="none" stroke="#a29bfe" stroke-width="0.9" stroke-opacity="0.3" stroke-linejoin="round"/>
+
+  <!-- Branch 3: left-mid -->
+  <polyline points="600,285 550,290 490,270 440,250 380,260" fill="none" stroke="#c4b5fd" stroke-width="1.5" stroke-opacity="0.45" stroke-linejoin="round"/>
+
+  <!-- Branch 3 sub -->
+  <polyline points="490,270 460,240 430,210" fill="none" stroke="#a29bfe" stroke-width="0.8" stroke-opacity="0.25" stroke-linejoin="round"/>
+
+  <!-- Branch 4: right-mid -->
+  <polyline points="600,285 660,275 730,290 790,260 850,250 910,270" fill="none" stroke="#c4b5fd" stroke-width="1.5" stroke-opacity="0.45" stroke-linejoin="round"/>
+
+  <!-- Branch 4 sub -->
+  <polyline points="730,290 760,320 800,340" fill="none" stroke="#a29bfe" stroke-width="0.8" stroke-opacity="0.25" stroke-linejoin="round"/>
+
+  <!-- Branch 5: lower-left -->
+  <g filter="url(#glowSmP)">
+    <polyline points="
+      595,370  540,400  470,390  410,430  340,480  280,470
+    " fill="none" stroke="#c4b5fd" stroke-width="1.6" stroke-opacity="0.45" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Branch 5 sub -->
+  <polyline points="410,430 390,400 360,380" fill="none" stroke="#a29bfe" stroke-width="0.8" stroke-opacity="0.2" stroke-linejoin="round"/>
+
+  <!-- Branch 6: lower-right -->
+  <g filter="url(#glowSmP)">
+    <polyline points="
+      610,420  680,400  760,440  830,470  910,450
+    " fill="none" stroke="#c4b5fd" stroke-width="1.6" stroke-opacity="0.45" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Branch 6 sub -->
+  <polyline points="760,440 790,480 830,510" fill="none" stroke="#a29bfe" stroke-width="0.8" stroke-opacity="0.2" stroke-linejoin="round"/>
+
+  <!-- Branch 7: leftmost accent -->
+  <polyline points="370,50 320,80 250,60 200,90" fill="none" stroke="#a29bfe" stroke-width="0.9" stroke-opacity="0.2" stroke-linejoin="round"/>
+
+  <!-- Branch 8: rightmost accent -->
+  <polyline points="890,20 950,60 1000,30 1070,70" fill="none" stroke="#a29bfe" stroke-width="0.9" stroke-opacity="0.2" stroke-linejoin="round"/>
+
+  <!-- ===== CRACK DETAIL LINES (tiny hairline branches) ===== -->
+  <g stroke="#a29bfe" stroke-width="0.7" fill="none" stroke-opacity="0.25" stroke-linejoin="round">
+    <polyline points="605,180 580,170 550,165"/>
+    <polyline points="595,220 560,210 530,215"/>
+    <polyline points="603,280 630,270 660,275"/>
+    <polyline points="597,300 570,310 540,305"/>
+    <polyline points="605,330 635,325 670,330"/>
+    <polyline points="590,470 555,480 520,475"/>
+    <polyline points="605,520 635,510 670,515"/>
+  </g>
+
+  <!-- ===== CENTER BRIGHT POINT ===== -->
+  <!-- Small intense bright point where the crack "breaks through" -->
+  <ellipse cx="600" cy="285" rx="8" ry="5" fill="#ffffff" filter="url(#glowSm)" opacity="0.95"/>
+
+  <!-- Center horizontal spread -->
+  <ellipse cx="600" cy="280" rx="60" ry="30" fill="#a29bfe" filter="url(#glowXl)" opacity="0.15"/>
+
+  <!-- ===== VIGNETTE OVERLAY ===== -->
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+
+  <!-- ===== NOISE/GRAIN TEXTURE (subtle, editorial) ===== -->
+  <rect width="1200" height="630" filter="url(#noiseGrain)" opacity="1"/>
+
+  <!-- ===== TEXT ===== -->
+
+  <!-- Brand name - understated, confident -->
+  <text x="600" y="550" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="400" fill="#ffffff" letter-spacing="0.35em" opacity="0.55">
+    wooogy-hq
   </text>
 
-  <!-- Tagline -->
-  <text x="600" y="340" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="url(#purpleGrad)">AI 시대, 개인의 힘을 증명한다</text>
-
-  <!-- Divider -->
-  <line x1="540" y1="395" x2="660" y2="395" stroke="rgba(108,92,231,0.15)" stroke-width="1"/>
-
-  <!-- Footer subtitle -->
-  <text x="600" y="470" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#555">Built by a human and an AI.</text>
-
-  <!-- Bottom URL -->
-  <text x="600" y="520" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400" fill="#444">wooogy-hq.com</text>
-
-  <!-- Thin decorative line at bottom -->
-  <rect x="0" y="629" width="1200" height="1" fill="url(#purpleGrad)" opacity="0.15"/>
+  <!-- Tagline - subtle purple -->
+  <text x="600" y="585" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="300" fill="url(#textGrad)" letter-spacing="0.2em" opacity="0.6">
+    AI 시대, 개인의 힘을 증명한다
+  </text>
 
 </svg>
